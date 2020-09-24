@@ -8,71 +8,48 @@
 #include <iostream>
 #include <map>
 
-int maxlen(int [], int);
+int maxlen(const int [], int);
 
 int main() {
 
 //  Plateau Program - max sequence length
     int sequence [13] = {1, 1, 1, 2, 3, 3, 5, 6, 6, 6, 6, 7, 9};
     int sizeOfSeq = sizeof(sequence)/ sizeof(sequence[0]);
-    maxlen(sequence, sizeOfSeq);
-    std::cout << "Yee" << std::endl;
+    int mode = maxlen(sequence, sizeOfSeq);
+    std::cout << "The mode is : " << mode << std::endl;
 
     return 0;
 }
 
-int maxlen(int sequence[], int size)
+int maxlen(const int sequence[], int sizeOfSeq)
 {
-    int numOfMaxSeqLen;
-    std::map<int, int> sequenceMap;
-
-    for (int i = 0; i < size; i++)
+    int baseNumber = sequence[0];
+    int mode = baseNumber;
+    int count = 1;
+    int modeCount = 1;
+  /*
+   * Count will keep track of how many occurrences there are of sequential numbers that are the same.
+   * count will switch with modeCount when there is no longer the same sequential number.
+   * This solution will have a time complexity of O(n) since the for loop only iterates through the
+   * array once i.e there are n number of elements in the array and each element is visited once.
+   * Therefore the number of elements n is equal to the amount of time the program will take O(n)
+   */
+    for (int i = 1; i < sizeOfSeq; i++)
     {
-        if(sequenceMap.empty())
-        {
-            sequenceMap.insert({sequence[i], 1});
+        if (sequence[i] == baseNumber)
+        { // count occurrences of the current number
+            ++count;
         }
-        if (sequence[i] == sequence[i+1])
+        else
         {
-            int a = sequenceMap.at(sequence[i]);
-            auto b = sequenceMap.find(sequence[i]);
-            b->second++;
-            std::cout << ".find() points to " << b->first <<
-                 " = " << b->second << std::endl;
-        } else {
-            sequenceMap.insert({sequence[i], 1});
+            if (count > modeCount)
+            {
+                modeCount = count;
+                mode = baseNumber;
+            }
+            count = 1; // resets the count for the new baseNumber
+            baseNumber = sequence[i];
         }
     }
-
-
-
-    pair<int, int> findEntryWithLargestValue(
-            map<int, int> sampleMap)
-    {
-
-        // Reference variable to help find
-        // the entry with the highest value
-        pair<int, int> entryWithMaxValue
-                = make_pair(0, 0);
-
-        // Iterate in the map to find the required entry
-        map<int, int>::iterator currentEntry;
-        for (currentEntry = sampleMap.begin();
-             currentEntry != sampleMap.end();
-             ++currentEntry) {
-
-            // If this entry's value is more
-            // than the max value
-            // Set this entry as the max
-            if (currentEntry->second
-                > entryWithMaxValue.second) {
-
-                entryWithMaxValue
-                        = make_pair(
-                        currentEntry->first,
-                        currentEntry->second);
-            }
-        }
-
-    return numOfMaxSeqLen;
+    return mode;
 }
