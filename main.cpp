@@ -6,15 +6,14 @@
 * **************************************************************/
 
 #include <iostream>
-#include <map>
 
-#define NUM_DIM 7
+#define RC_SIZE 7
 #define SINGLE_DIGITS 10
 
 int maxlen(const int [], int);
 void bigInt(const int);
 
-const char ascNumbers[SINGLE_DIGITS][NUM_DIM][NUM_DIM] = {
+const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         {
                 {' ', ' ', '@', '@', '@', '@', ' '},
                 {' ', '@', '@', ' ', ' ', '@', '@'},
@@ -156,19 +155,17 @@ int main() {
          --z;
      }
 
-     for (int i = 0; i < NUM_DIM; i++) {
+     for (int i = 0; i < RC_SIZE; i++) {
              //Row position
              for (int k = 0; k < size; k++) {
                  //Column position
-                 for (int j = 0; j < NUM_DIM; j++) {
+                 for (int j = 0; j < RC_SIZE; j++) {
                      //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
                      std::cout << ascNumbers[(digitArray[k])][i][j];
                  }
              }
          std::cout << std::endl;
          }
-
-
  }
 
 int maxlen(const int sequence[], int sizeOfSeq)
