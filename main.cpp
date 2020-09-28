@@ -126,13 +126,13 @@ int main() {
 
 //    BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
     int numPrint = 1;
-    for (int i = 0; i <= 9; i++)
+    for (int i = 0; i <= 10; i++)
     {
         bigInt(numPrint);
         std::cout << std::endl;
-        if (numPrint != 9)
+        if (numPrint != 123456789)
         {
-            numPrint = (numPrint * 10) + (numPrint + 1);
+            numPrint = (numPrint * 10) + (i + 2);
         } else {
             numPrint = 1234567890;
         }
@@ -144,18 +144,28 @@ int main() {
  void bigInt(const int number)
  {
      int size = std::to_string(number).length();
+     int numDigit = number;
+     int digitArray[size];
+//   Getting individual digits from number and assigns it to digitArray to use for printing later.
+     int z = size - 1;
+     while (numDigit > 0)
+     {
+         int digit = numDigit % 10;
+         numDigit /= 10;
+         digitArray[z] = digit;
+         --z;
+     }
 
-         for (int i = 0; i < NUM_DIM; i++) {
-             //checks each char in the argument
+     for (int i = 0; i < NUM_DIM; i++) {
+             //Row position
              for (int k = 0; k < size; k++) {
-                 //positions column for each number
-                 for (int j = 0; j <NUM_DIM; j++) {
-                     //this int determins which number will be written in the NUMBERS array
-                     //the entire row is written for each number before moving to the next row
-                     std::cout << ascNumbers[(number)][i][j];
+                 //Column position
+                 for (int j = 0; j < NUM_DIM; j++) {
+                     //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
+                     std::cout << ascNumbers[(digitArray[k])][i][j];
                  }
-                 std::cout << std::endl;
              }
+         std::cout << std::endl;
          }
 
 
