@@ -124,7 +124,7 @@ int main() {
     int mode = maxlen(sequence, sizeOfSeq);
     std::cout << "The mode is : " << mode << std::endl;
 
-//    BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
+//  BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
     int numPrint = 1;
     for (int i = 0; i <= 10; i++)
     {
@@ -146,8 +146,8 @@ int main() {
      int size = std::to_string(number).length();
      int numDigit = number;
      int digitArray[size];
-//   Getting individual digits from number and assigns it to digitArray to use for printing later.
      int z = size - 1;
+//   Getting individual digits from number and assigns it to digitArray to use for printing later.
      while (numDigit > 0)
      {
          int digit = numDigit % 10;
@@ -167,8 +167,6 @@ int main() {
              }
          std::cout << std::endl;
          }
-
-
  }
 
 int maxlen(const int sequence[], int sizeOfSeq)
