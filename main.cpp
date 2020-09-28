@@ -133,7 +133,8 @@ int main() {
         if (numPrint != 123456789)
         {
             numPrint = (numPrint * 10) + (i + 2);
-        } else {
+        } else 
+        {
             numPrint = 1234567890;
         }
     }
@@ -156,11 +157,14 @@ int main() {
          --z;
      }
 
-     for (int i = 0; i < NUM_DIM; i++) {
+     for (int i = 0; i < NUM_DIM; i++) 
+     {
              //Row position
-             for (int k = 0; k < size; k++) {
+             for (int k = 0; k < size; k++) 
+             {
                  //Column position
-                 for (int j = 0; j < NUM_DIM; j++) {
+                 for (int j = 0; j < NUM_DIM; j++) 
+                 {
                      //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
                      std::cout << ascNumbers[(digitArray[k])][i][j];
                  }
