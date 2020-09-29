@@ -143,12 +143,10 @@ int main() {
 //  Array Processing. Creating a function reduce(array, size) that reduces
 //  the given array's 3 largest integers. i.e a=(9,1,1,6,7,1,2,6,6,6,7,1,9)
 //  reduce(a, size) returns a=(1,1,1,2,1) since 6,7,9 are the 3 largest.
-
     int array[16] = {9,1,1,6,7,1,2,3,3,5,6,6,6,6,7,9};
     int arraySize = sizeof(array)/sizeof(array[0]);
     int reducedArraySize = arrayReduce(array, arraySize);
     std::cout << "Reduced Size : " << reducedArraySize << std::endl;
-
 
     return 0;
 }
@@ -158,7 +156,6 @@ int arrayReduce(int array[], int size)
 //  First find three largest values
     int first, second, third;
     first = second = third = 0;
-
     for (int i = 0; i < size; i++)
     {
         if (array[i] > first)
