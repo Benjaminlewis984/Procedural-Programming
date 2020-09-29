@@ -95,7 +95,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', ' ', ' '},
                 {' ', '@', '@', ' ', ' ', ' ', ' '}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', '@', '@', ' ', ' ', '@', '@'},
@@ -105,7 +104,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', '@', '@'},
                 {' ', '@', '@', '@', '@', '@', '@'}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', '@', '@', ' ', ' ', '@', '@'},
@@ -126,7 +124,7 @@ int main() {
     std::cout << "The mode is : " << mode << std::endl;
     std::cout << std::endl;
 
-//    BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
+//  BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
     int numPrint = 1;
     for (int i = 0; i < 10; i++)
     {
@@ -135,7 +133,8 @@ int main() {
         if (numPrint != 123456789)
         {
             numPrint = (numPrint * 10) + (i + 2);
-        } else {
+        } else
+        {
             numPrint = 1234567890;
         }
     }
@@ -189,8 +188,8 @@ int arrayReduce(int array[], int size)
      int size = std::to_string(number).length();
      int numDigit = number;
      int digitArray[size];
-//   Getting individual digits from number and assigns it to digitArray to use for printing later.
      int z = size - 1;
+//   Getting individual digits from number and assigns it to digitArray to use for printing later.
      while (numDigit > 0)
      {
          int digit = numDigit % 10;
@@ -200,8 +199,10 @@ int arrayReduce(int array[], int size)
      }
 
      for (int i = 0; i < RC_SIZE; i++) {
+
              //Row position
-             for (int k = 0; k < size; k++) {
+             for (int k = 0; k < size; k++)
+             {
                  //Column position
                  for (int j = 0; j < RC_SIZE; j++) {
                      //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
