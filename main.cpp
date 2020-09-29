@@ -6,6 +6,7 @@
 * **************************************************************/
 
 #include <iostream>
+#include <vector>
 
 #define RC_SIZE 7
 #define SINGLE_DIGITS 10
@@ -127,7 +128,7 @@ int main() {
 
 //    BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
     int numPrint = 1;
-    for (int i = 0; i <= 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         bigInt(numPrint);
         std::cout << std::endl;
@@ -146,18 +147,44 @@ int main() {
     int array[16] = {9,1,1,6,7,1,2,3,3,5,6,6,6,6,7,9};
     int arraySize = sizeof(array)/sizeof(array[0]);
     int reducedArraySize = arrayReduce(array, arraySize);
+    std::cout << "Reduced Size : " << reducedArraySize << std::endl;
+
 
     return 0;
 }
 
 int arrayReduce(int array[], int size)
 {
-    int largest[3];
-    int temp;
+//  First find three largest values
+    int first, second, third;
+    first = second = third = 0;
+
     for (int i = 0; i < size; i++)
     {
-
+        if (array[i] > first)
+        {
+            third = second; second = first; first = array[i];
+        } else if (array[i] > second && array[i] != first)
+        {
+            third = second; second = array[i];
+        } else if (array[i] > third && array[i] != second && array[i] != first)
+        {
+            third = array[i];
+        }
     }
+//  Reduces array by values. O(n) time
+    std::vector<int> reducedArray;
+    for (int i = 0; i < size; i++)
+    {
+        if (array[i] != first && array[i] != second && array[i] != third)
+        {
+            reducedArray.push_back(array[i]);
+        }
+    }
+    int reducedSize = reducedArray.size();
+
+    std::cout << first << second << third << std::endl;
+    return reducedSize;
 }
 
  void bigInt(const int number)
