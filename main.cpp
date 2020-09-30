@@ -118,7 +118,7 @@ int main() {
     int sequence [13] = {1, 1, 1, 2, 3, 3, 5, 6, 6, 6, 6, 7, 9};
     int sizeOfSeq = sizeof(sequence)/ sizeof(sequence[0]);
     int mode = maxlen(sequence, sizeOfSeq);
-    std::cout << "The mode is : " << mode << std::endl;
+    std::cout << "The maximum length : " << mode << std::endl;
     std::cout << std::endl;
 }
 
@@ -155,16 +155,16 @@ int main() {
     int sizeOfa = sizeof(a)/ sizeof(a[0]);
     int n, K;
     n = K = 2147483647;
-    for(int j = 0; j < K; j++)
-    {
-        for(int i = 0; i < n; i++)
-        {
-            if(bs(a, sizeOfa, i) != i)
-            {
-                std::cout << "\nERROR";
-            }
-        }
-    }
+//    for(int j = 0; j < K; j++)
+//    {
+//        for(int i = 0; i < n; i++)
+//        {
+//            if(bs(a, sizeOfa, i) != i)
+//            {
+//                std::cout << "\nERROR";
+//            }
+//        }
+//    }
     return 0;
 }
 
@@ -240,6 +240,7 @@ int maxlen(const int sequence[], int sizeOfSeq)
 {
     int baseNumber = sequence[0];
     int mode = baseNumber;
+    int maxLength = 0;
     int count = 1;
     int modeCount = 1;
   /*
@@ -261,10 +262,11 @@ int maxlen(const int sequence[], int sizeOfSeq)
             {
                 modeCount = count;
                 mode = baseNumber;
+                maxLength = modeCount;
             }
             count = 1; // resets the count for the new baseNumber
             baseNumber = sequence[i];
         }
     }
-    return mode;
+    return maxLength;
 }
