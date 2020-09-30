@@ -14,6 +14,7 @@
 int maxlen(const int [], int);
 void bigInt(const int);
 int arrayReduce(int [], int);
+int bs(int [], int, int);
 
 const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         {
@@ -25,7 +26,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', '@', '@'},
                 {' ', ' ', '@', '@', '@', '@', ' '}
         },
-
         {
                 {' ', ' ', ' ', '@', '@', ' ', ' '},
                 {' ', ' ', '@', '@', '@', ' ', ' '},
@@ -35,7 +35,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', ' ', ' ', '@', '@', ' ', ' '},
                 {' ', '@', '@', '@', '@', '@', '@'}
         },
-
         {
                 {' ', ' ', ' ', '@', '@', '@', ' '},
                 {' ', ' ', '@', '@', ' ', '@', '@'},
@@ -45,7 +44,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', ' ', ' '},
                 {' ', '@', '@', '@', '@', '@', '@'}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', '@', '@', ' ', ' ', '@', ' '},
@@ -55,7 +53,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', ' ', '@'},
                 {' ', '@', '@', '@', '@', '@', ' '}
         },
-
         {
                 {' ', ' ', ' ', '@', '@', '@', ' '},
                 {' ', ' ', '@', ' ', '@', '@', ' '},
@@ -65,7 +62,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', ' ', ' ', ' ', '@', '@', ' '},
                 {' ', ' ', ' ', ' ', '@', '@', ' '}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', '@', '@', ' ', ' ', ' ', ' '},
@@ -117,14 +113,17 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
 
 int main() {
 
-//  Plateau Program - max sequence length
+{   //  Segment 1
+    //  Plateau Program - max sequence length
     int sequence [13] = {1, 1, 1, 2, 3, 3, 5, 6, 6, 6, 6, 7, 9};
     int sizeOfSeq = sizeof(sequence)/ sizeof(sequence[0]);
     int mode = maxlen(sequence, sizeOfSeq);
     std::cout << "The mode is : " << mode << std::endl;
     std::cout << std::endl;
+}
 
-//  BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
+{   //  Segment 2
+    //  BigInt 3 dimensional array that shows ascii symbol @ written for integers 0 - 9
     int numPrint = 1;
     for (int i = 0; i < 10; i++)
     {
@@ -138,15 +137,34 @@ int main() {
             numPrint = 1234567890;
         }
     }
+}
 
-//  Array Processing. Creating a function reduce(array, size) that reduces
-//  the given array's 3 largest integers. i.e a=(9,1,1,6,7,1,2,6,6,6,7,1,9)
-//  reduce(a, size) returns a=(1,1,1,2,1) since 6,7,9 are the 3 largest.
+{   //  Segment 3
+    //  Array Processing. Creating a function reduce(array, size) that reduces
+    //  the given array's 3 largest integers. i.e a=(9,1,1,6,7,1,2,6,6,6,7,1,9)
+    //  reduce(a, size) returns a=(1,1,1,2,1) since 6,7,9 are the 3 largest.
     int array[16] = {9,1,1,6,7,1,2,3,3,5,6,6,6,6,7,9};
     int arraySize = sizeof(array)/sizeof(array[0]);
     int reducedArraySize = arrayReduce(array, arraySize);
-    std::cout << "Reduced Size : " << reducedArraySize << std::endl;
+    std::cout << "Reduced Size : " << reducedArraySize << std::endl;}
 
+    //  Iteration versus recursion
+    //  Create a function bs() that is a binary search function that returns
+    //  the index i of a sorted array. Using both iteration and recursion.
+    int a[10] = {1,2,3,4,5,6,7,8,9,10};
+    int sizeOfa = sizeof(a)/ sizeof(a[0]);
+    int n, K;
+    n = K = 2147483647;
+    for(int j = 0; j < K; j++)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            if(bs(a, sizeOfa, i) != i)
+            {
+                std::cout << "\nERROR";
+            }
+        }
+    }
     return 0;
 }
 
@@ -211,6 +229,11 @@ int arrayReduce(int array[], int size)
              }
          std::cout << std::endl;
          }
+ }
+
+ int bs(int array[], int size, int value)
+ {
+    return 0;
  }
 
 int maxlen(const int sequence[], int sizeOfSeq)
