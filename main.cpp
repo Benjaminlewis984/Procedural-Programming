@@ -173,7 +173,7 @@ int main() {
         {
             if(bs(array, n, i) != i)
             {
-                std::cout << "\nERROR";
+                std::cout << "\nERROR" << std::endl;
             }
         }
     }
