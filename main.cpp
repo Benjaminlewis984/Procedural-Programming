@@ -120,11 +120,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         }
 };
 
-double sec(void)
-{
-    return double(clock())/double(CLOCKS_PER_SEC);
-}
-
 int main() {
 
 {   //  Segment 1
@@ -162,7 +157,8 @@ int main() {
     int reducedArraySize = arrayReduce(array, arraySize);
     std::cout << "Reduced Size : " << reducedArraySize << std::endl;}
 
-    //  Iteration versus recursion
+    {// Segment 4
+        //  Iteration versus recursion
     //  Create a function bs() that is a binary search function that returns
     //  the index i of a sorted array. Using both iteration and recursion.
     //  Making the size of n and k have a runtime process of over 3 seconds.
@@ -172,6 +168,7 @@ int main() {
     int high = MAX_ARRAY_SIZE-1;
     int n, K;
     n = K = 1600;
+    // Iteration
     auto t1 = std::chrono::high_resolution_clock::now();
     for(int j = 0; j < K; j++)
     {
@@ -187,6 +184,7 @@ int main() {
     auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "Iterative version duration in milliseconds : " << duration1 <<std::endl;
 
+    // Recursion
     t1 = std::chrono::high_resolution_clock::now();
     for(int j = 0; j < K; j++)
     {
@@ -201,7 +199,7 @@ int main() {
     t2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "Recursive version duration in milliseconds : " << duration2 <<std::endl;
-    std::cout << "Ratio between recursive and iterative function. Recursion is : x" << duration1/duration2 << " faster" << std::endl;
+    std::cout << "Ratio between recursive and iterative function. Recursion is : x" << duration1/duration2 << " faster" << std::endl;}
 
     return 0;
 }
@@ -234,8 +232,8 @@ int arrayReduce(int array[], int size)
         }
     }
     int reducedSize = reducedArray.size();
-
-    std::cout << first << second << third << std::endl;
+    // Commented section shows which values are the largest.
+//    std::cout << first << second << third << std::endl;
     return reducedSize;
 }
 
@@ -254,8 +252,8 @@ int arrayReduce(int array[], int size)
          --z;
      }
 
-     for (int i = 0; i < RC_SIZE; i++) {
-
+     for (int i = 0; i < RC_SIZE; i++)
+     {
              //Row position
              for (int k = 0; k < size; k++)
              {
@@ -269,9 +267,9 @@ int arrayReduce(int array[], int size)
          }
  }
 
+// Iteration approach
  int bs(int array[], int n, int value)
  {
-    // Iteration approach
     for (int i = 0; i < n; i++)
     {
         if (array[i] == value){
@@ -281,12 +279,14 @@ int arrayReduce(int array[], int size)
     return -1;
  }
 
+// Recursion approach
 int bs(int array[], int low, int high, int value)
 {
+//  This function is based on the one provided in the CSC 600 reader.
     int middle = (low + high) / 2;
     if (low > high) return - 1;
     if (value < array[middle]) return bs(array, low, middle-1, value);
-    if (value > array[middle]) return bs(array, middle + 1, high, value);
+    if (value > array[middle]) return bs(array, middle+1, high, value);
     return middle;
 }
 
