@@ -17,7 +17,7 @@ int maxlen(const int [], int);
 void bigInt(const int);
 int arrayReduce(int [], int);
 int bs(int [], int, int);
-int bsr(int [], int, int, int);
+int bs(int [], int, int, int);
 
 void initializeArray(int* array) {
     for (int i = 0; i < MAX_ARRAY_SIZE; i++) {
@@ -173,34 +173,35 @@ int main() {
     int n, K;
     n = K = 1600;
     auto t1 = std::chrono::high_resolution_clock::now();
-//    for(int j = 0; j < K; j++)
-//    {
-//        for(int i = 0; i < n; i++)
-//        {
-//            if(bs(array, n, i) != i)
-//            {
-//                std::cout << "\nERROR";
-//            }
-//        }
-//    }
+    for(int j = 0; j < K; j++)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            if(bs(array, n, i) != i)
+            {
+                std::cout << "\nERROR";
+            }
+        }
+    }
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << "Iterative version duration in milliseconds : " << duration <<std::endl;
+    auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+    std::cout << "Iterative version duration in milliseconds : " << duration1 <<std::endl;
 
     t1 = std::chrono::high_resolution_clock::now();
     for(int j = 0; j < K; j++)
     {
         for(int i = 0; i < n; i++)
         {
-            if(bsr(array, low, high, i) != i)
+            if(bs(array, low, high, i) != i)
             {
                 std::cout << "\nERROR";
             }
         }
     }
     t2 = std::chrono::high_resolution_clock::now();
-    duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << "Recursive version duration in milliseconds : " << duration <<std::endl;
+    auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+    std::cout << "Recursive version duration in milliseconds : " << duration2 <<std::endl;
+    std::cout << "Ratio between recursive and iterative function. Recursion is : x" << duration1/duration2 << " faster" << std::endl;
 
     return 0;
 }
@@ -277,15 +278,15 @@ int arrayReduce(int array[], int size)
             return array[i];
         }
     }
-    return 0;
+    return -1;
  }
 
-int bsr(int array[], int low, int high, int value)
+int bs(int array[], int low, int high, int value)
 {
     int middle = (low + high) / 2;
     if (low > high) return - 1;
-    if (value < array[middle]) return bsr(array, low, middle-1, value);
-    if (value > array[middle]) return bsr(array, middle + 1, high, value);
+    if (value < array[middle]) return bs(array, low, middle-1, value);
+    if (value > array[middle]) return bs(array, middle + 1, high, value);
     return middle;
 }
 
