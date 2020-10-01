@@ -20,9 +20,8 @@ int bs(int [], int, int);
 int bs(int [], int, int, int);
 
 void initializeArray(int* array) {
-    for (int i = 0; i < MAX_ARRAY_SIZE; i++) {
-        array[i] = i;
-    }
+//  Simply fills out the array from 0 to the MAX_ARRAY_SIZE incr by 1
+    for (int i = 0; i < MAX_ARRAY_SIZE; i++) array[i] = i;
 }
 
 const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
@@ -80,7 +79,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', ' ', ' ', ' ', ' ', '@', '@'},
                 {' ', '@', '@', '@', '@', '@', '@'}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', '@', '@', ' ', ' ', ' ', ' '},
@@ -90,7 +88,6 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
                 {' ', '@', '@', ' ', ' ', '@', '@'},
                 {' ', '@', '@', '@', '@', '@', '@'}
         },
-
         {
                 {' ', '@', '@', '@', '@', '@', '@'},
                 {' ', ' ', ' ', ' ', ' ', '@', '@'},
@@ -149,19 +146,19 @@ int main() {
 }
 
 {   //  Segment 3
-    //  Array Processing. Creating a function reduce(array, size) that reduces
-    //  the given array's 3 largest integers. i.e a=(9,1,1,6,7,1,2,6,6,6,7,1,9)
-    //  reduce(a, size) returns a=(1,1,1,2,1) since 6,7,9 are the 3 largest.
+    /* Array Processing. Creating a function reduce(array, size) that reduces
+     * the given array's 3 largest integers. i.e a=(9,1,1,6,7,1,2,6,6,6,7,1,9)
+     * educe(a, size) returns a=(1,1,1,2,1) since 6,7,9 are the 3 largest. */
     int array[16] = {9,1,1,6,7,1,2,3,3,5,6,6,6,6,7,9};
     int arraySize = sizeof(array)/sizeof(array[0]);
     int reducedArraySize = arrayReduce(array, arraySize);
     std::cout << "Reduced Size : " << reducedArraySize << std::endl;}
 
     {// Segment 4
-        //  Iteration versus recursion
-    //  Create a function bs() that is a binary search function that returns
-    //  the index i of a sorted array. Using both iteration and recursion.
-    //  Making the size of n and k have a runtime process of over 3 seconds.
+        /*  Iteration versus recursion
+         * Create a function bs() that is a binary search function that returns
+         * the index i of a sorted array. Using both iteration and recursion.
+         * Making the size of n and k have a runtime process of over 3 seconds.*/
     int array[MAX_ARRAY_SIZE];
     initializeArray(array);
     int low = 0;
@@ -199,7 +196,13 @@ int main() {
     t2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "Recursive version duration in milliseconds : " << duration2 <<std::endl;
-    std::cout << "Ratio between recursive and iterative function. Recursion is : x" << duration1/duration2 << " faster" << std::endl;}
+    std::cout << "Ratio between recursive and iterative function. Recursion is : x" << duration1/duration2 << " faster" << std::endl;
+
+    /* Throughout all speed test between iteration and recursion, recursion was faster ever time
+     * Consistantly rescursion was about x4 faster than iteration.
+     * This is mainly because recursion uses a faster part of memory; i.e the stack.
+     * Since the stack is a part of RAM it is able to do calculation at a much faster rate.*/
+    }
 
     return 0;
 }
@@ -233,7 +236,7 @@ int arrayReduce(int array[], int size)
     }
     int reducedSize = reducedArray.size();
     // Commented section shows which values are the largest.
-//    std::cout << first << second << third << std::endl;
+    // std::cout << first << second << third << std::endl;
     return reducedSize;
 }
 
@@ -251,17 +254,15 @@ int arrayReduce(int array[], int size)
          digitArray[z] = digit;
          --z;
      }
-
      for (int i = 0; i < RC_SIZE; i++)
      {
              //Row position
              for (int k = 0; k < size; k++)
              {
                  //Column position
-                 for (int j = 0; j < RC_SIZE; j++) {
-                     //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
-                     std::cout << ascNumbers[(digitArray[k])][i][j];
-                 }
+                 //Writes one row at a time. The digitArray[] is used for deciding which number will be printed.
+                 for (int j = 0; j < RC_SIZE; j++) std::cout << ascNumbers[(digitArray[k])][i][j];
+
              }
          std::cout << std::endl;
          }
@@ -276,21 +277,11 @@ int arrayReduce(int array[], int size)
     if (low > high) return -1;
     if (value < array[middle])
     {
-        for (int i = low; i < middle; i++)
-        {
-            if (array[i] == value){
-                return array[i];
-            }
-        }
+        for (int i = low; i < middle; i++) if (array[i] == value) return array[i];
     }
      if (value > array[middle])
      {
-         for (int i = 0; i > middle; i--)
-         {
-             if (array[i] == value){
-                 return array[i];
-             }
-         }
+         for (int i = 0; i > middle; i--) if (array[i] == value) return array[i];
      }
  }
 
@@ -321,10 +312,8 @@ int maxlen(const int sequence[], int sizeOfSeq)
    */
     for (int i = 1; i < sizeOfSeq; i++)
     {
-        if (sequence[i] == baseNumber)
-        { // count occurrences of the current number
-            ++count;
-        }
+        // count occurrences of the current number
+        if (sequence[i] == baseNumber) ++count;
         else
         {
             if (count > modeCount)
