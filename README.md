@@ -3,7 +3,7 @@ Developing 4 efficient programs in order to more fully understand the implementa
 
 OUTPUT : 
 The maximum length : 4
-
+'''
    @@  
   @@@  
    @@  
@@ -83,7 +83,7 @@ The maximum length : 4
    @@    @@         @    @@      @@ @@  @@  @@    @@  @@     @@ @@  @@
    @@   @@     @@   @    @@      @@ @@  @@ @@     @@  @@     @@ @@  @@
  @@@@@@ @@@@@@ @@@@@     @@  @@@@@@ @@@@@@ @@     @@@@@@ @@@@@@  @@@@ 
-
+'''
 Reduced Size : 7
 
 Iterative version duration in milliseconds : 2025708
