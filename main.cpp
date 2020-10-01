@@ -11,12 +11,19 @@
 
 #define RC_SIZE 7
 #define SINGLE_DIGITS 10
+#define MAX_ARRAY_SIZE 90000
 
 int maxlen(const int [], int);
 void bigInt(const int);
 int arrayReduce(int [], int);
 int bs(int [], int, int);
-int bsr(int [], int, int);
+int bsr(int [], int, int, int);
+
+void initializeArray(int* array) {
+    for (int i = 0; i < MAX_ARRAY_SIZE; i++) {
+        array[i] = i;
+    }
+}
 
 const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         {
@@ -159,40 +166,41 @@ int main() {
     //  Create a function bs() that is a binary search function that returns
     //  the index i of a sorted array. Using both iteration and recursion.
     //  Making the size of n and k have a runtime process of over 3 seconds.
+    int array[MAX_ARRAY_SIZE];
+    initializeArray(array);
+    int low = 0;
+    int high = MAX_ARRAY_SIZE-1;
     int n, K;
     n = K = 1600;
     auto t1 = std::chrono::high_resolution_clock::now();
-    for(int j = 0; j < K; j++)
-    {
-        for(int i = 0; i < n; i++)
-        {
-            int a[i];
-            int sizeOfa = sizeof(a)/ sizeof(a[0]);
-            if(bs(a, n, i) != i)
-            {
-                std::cout << "\nERROR";
-            }
-        }
-    }
+//    for(int j = 0; j < K; j++)
+//    {
+//        for(int i = 0; i < n; i++)
+//        {
+//            if(bs(array, n, i) != i)
+//            {
+//                std::cout << "\nERROR";
+//            }
+//        }
+//    }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "Iterative version duration in milliseconds : " << duration <<std::endl;
+
     t1 = std::chrono::high_resolution_clock::now();
     for(int j = 0; j < K; j++)
     {
         for(int i = 0; i < n; i++)
         {
-            int a[i];
-            int sizeOfa = sizeof(a)/ sizeof(a[0]);
-            if(bsr(a, n, i) != i)
+            if(bsr(array, low, high, i) != i)
             {
                 std::cout << "\nERROR";
             }
         }
     }
     t2 = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "Recursive version duration in milliseconds : " << duration <<std::endl;
-
 
     return 0;
 }
@@ -269,10 +277,17 @@ int arrayReduce(int array[], int size)
             return array[i];
         }
     }
-
-
     return 0;
  }
+
+int bsr(int array[], int low, int high, int value)
+{
+    int middle = (low + high) / 2;
+    if (low > high) return - 1;
+    if (value < array[middle]) return bsr(array, low, middle-1, value);
+    if (value > array[middle]) return bsr(array, middle + 1, high, value);
+    return middle;
+}
 
 int maxlen(const int sequence[], int sizeOfSeq)
 {
