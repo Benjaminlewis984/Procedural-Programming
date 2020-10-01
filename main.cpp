@@ -270,13 +270,28 @@ int arrayReduce(int array[], int size)
 // Iteration approach
  int bs(int array[], int n, int value)
  {
-    for (int i = 0; i < n; i++)
+    int low = 0;
+    int high = n - 1;
+    int middle = (low + high) / 2;
+    if (low > high) return -1;
+    if (value < array[middle])
     {
-        if (array[i] == value){
-            return array[i];
+        for (int i = low; i < middle; i++)
+        {
+            if (array[i] == value){
+                return array[i];
+            }
         }
     }
-    return -1;
+     if (value > array[middle])
+     {
+         for (int i = 0; i > middle; i--)
+         {
+             if (array[i] == value){
+                 return array[i];
+             }
+         }
+     }
  }
 
 // Recursion approach
@@ -284,7 +299,7 @@ int bs(int array[], int low, int high, int value)
 {
 //  This function is based on the one provided in the CSC 600 reader.
     int middle = (low + high) / 2;
-    if (low > high) return - 1;
+    if (low > high) return -1;
     if (value < array[middle]) return bs(array, low, middle-1, value);
     if (value > array[middle]) return bs(array, middle+1, high, value);
     return middle;
