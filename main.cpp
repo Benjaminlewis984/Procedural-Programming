@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #define RC_SIZE 7
 #define SINGLE_DIGITS 10
@@ -15,6 +16,17 @@ int maxlen(const int [], int);
 void bigInt(const int);
 int arrayReduce(int [], int);
 int bs(int [], int, int);
+
+
+void function()
+{
+    long long number = 0;
+
+    for( long long i = 0; i != 2000000; ++i )
+    {
+        number += 5;
+    }
+}
 
 const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         {
@@ -111,6 +123,11 @@ const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         }
 };
 
+double sec(void)
+{
+    return double(clock())/double(CLOCKS_PER_SEC);
+}
+
 int main() {
 
 {   //  Segment 1
@@ -151,20 +168,27 @@ int main() {
     //  Iteration versus recursion
     //  Create a function bs() that is a binary search function that returns
     //  the index i of a sorted array. Using both iteration and recursion.
+    //  Making the size of n and k have a runtime process of over 3 seconds.
     int a[10] = {1,2,3,4,5,6,7,8,9,10};
     int sizeOfa = sizeof(a)/ sizeof(a[0]);
     int n, K;
-    n = K = 2147483647;
-//    for(int j = 0; j < K; j++)
-//    {
-//        for(int i = 0; i < n; i++)
-//        {
-//            if(bs(a, sizeOfa, i) != i)
-//            {
-//                std::cout << "\nERROR";
-//            }
-//        }
-//    }
+    n = K = 30000;
+    auto t1 = std::chrono::high_resolution_clock::now();
+    for(int j = 0; j < K; j++)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            if(bs(a, n, i) != i)
+            {
+                std::cout << "\nERROR";
+            }
+        }
+    }
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+    std::cout << duration <<std::endl;
+
+
     return 0;
 }
 
@@ -231,8 +255,17 @@ int arrayReduce(int array[], int size)
          }
  }
 
- int bs(int array[], int size, int value)
+ int bs(int array[], int n, int value)
  {
+    // Iteration approach
+    for (int i = 0; i < n; i++)
+    {
+        if (array[i] == value){
+            return array[i];
+        }
+    }
+
+
     return 0;
  }
 
