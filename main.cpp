@@ -16,17 +16,7 @@ int maxlen(const int [], int);
 void bigInt(const int);
 int arrayReduce(int [], int);
 int bs(int [], int, int);
-
-
-void function()
-{
-    long long number = 0;
-
-    for( long long i = 0; i != 2000000; ++i )
-    {
-        number += 5;
-    }
-}
+int bsr(int [], int, int);
 
 const char ascNumbers[SINGLE_DIGITS][RC_SIZE][RC_SIZE] = {
         {
@@ -169,15 +159,15 @@ int main() {
     //  Create a function bs() that is a binary search function that returns
     //  the index i of a sorted array. Using both iteration and recursion.
     //  Making the size of n and k have a runtime process of over 3 seconds.
-    int a[10] = {1,2,3,4,5,6,7,8,9,10};
-    int sizeOfa = sizeof(a)/ sizeof(a[0]);
     int n, K;
-    n = K = 30000;
+    n = K = 1600;
     auto t1 = std::chrono::high_resolution_clock::now();
     for(int j = 0; j < K; j++)
     {
         for(int i = 0; i < n; i++)
         {
+            int a[i];
+            int sizeOfa = sizeof(a)/ sizeof(a[0]);
             if(bs(a, n, i) != i)
             {
                 std::cout << "\nERROR";
@@ -186,7 +176,22 @@ int main() {
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << duration <<std::endl;
+    std::cout << "Iterative version duration in milliseconds : " << duration <<std::endl;
+    t1 = std::chrono::high_resolution_clock::now();
+    for(int j = 0; j < K; j++)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            int a[i];
+            int sizeOfa = sizeof(a)/ sizeof(a[0]);
+            if(bsr(a, n, i) != i)
+            {
+                std::cout << "\nERROR";
+            }
+        }
+    }
+    t2 = std::chrono::high_resolution_clock::now();
+    std::cout << "Recursive version duration in milliseconds : " << duration <<std::endl;
 
 
     return 0;
